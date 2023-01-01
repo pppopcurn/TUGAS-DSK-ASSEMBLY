@@ -2,9 +2,12 @@
 .stack 100h
 .data
     BarisBaru db 10,13,'$'
-    penyimpanan db 100 dup("$")
+    penyimpanan db 100 dup("$")      
     info db 10,13,'$'
-    tabel db 10,13,'| Nama | NIK | Nomor Kartu | Kelas Rawat |$'
+    namaa  db 10,13,' Nama :$'
+    nonik   db 10,13,' NIK  :$'
+    kartu   db 10,13,' Nomor Kartu :$'          
+    bpjs    db 10,13,' Kelas Rawat :$'
     nama db 10,13,'Masukkan Nama : $'
     nik db 10,13,'Masukkan NIK : $'     
     nomor_kartu db 10,13,'Masukkan Nomor Kartu : $' 
@@ -22,7 +25,7 @@ main proc
     int 21h
   
 nikCheck:
-    mov ah, 1
+    mov ah,10
     int 21h
     cmp al, 13
     je nikShow
@@ -45,7 +48,7 @@ nikShow:
     jmp nikSimpan
     
 nikSimpan:
-    mov ah, 1
+    mov ah, 10
     int 21h
     cmp al, 13
     je nomorkartuCheck
@@ -74,7 +77,7 @@ nomorkartuShow:
     jmp nomorkartuSimpan
     
 nomorkartuSimpan:
-    mov ah, 1
+    mov ah, 10
     int 21h
     cmp al, 13
     je kelasrawatCheck
@@ -104,7 +107,7 @@ kelasrawatShow:
     jmp kelasrawatSimpan
     
 kelasrawatSimpan:
-    mov ah, 1
+    mov ah, 10
     int 21h
     cmp al, 13
     je print
@@ -122,16 +125,26 @@ print:
     mov ah, 9
     int 21h
                 
-    mov dx, offset tabel
+    mov dx, offset namaa 
     mov ah, 9
-    int 21h
-                
-    mov dx, offset BarisBaru
+    int 21h    
+    
+    mov dx, offset nonik 
     mov ah, 9
-    int 21h
-                
+    int 21h      
+          
+    mov dx, offset kartu
+    mov ah, 9
+    int 21h      
+    
+    mov dx, offset bpjs
+    mov ah, 9
+    int 21h       
+    
     mov dx, offset penyimpanan
     mov ah, 9
     int 21h
     mov ah, 4ch
-    int 21h
+       
+    mov dx, offset BarisBaru
+    int 21h   
